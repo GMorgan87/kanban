@@ -4,6 +4,7 @@ import { boardsFeature } from '../../state/board/board.state';
 import {BoardActions} from '../../state/board/board.actions';
 import {ActivatedRoute} from '@angular/router';
 import {ColumnComponent} from './column/column';
+import {TaskActions} from '../../state/task/task.actions';
 
 @Component({
   selector: 'app-board',
@@ -25,6 +26,8 @@ export class BoardComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    console.log('LOAD TASKS')
+    this.store.dispatch(TaskActions.loadTasks())
     if (!this.board()) {
       this.store.dispatch(BoardActions.loadBoards());
       const selectedId = this.route.snapshot.paramMap.get('id');

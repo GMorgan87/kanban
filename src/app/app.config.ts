@@ -7,6 +7,7 @@ import { provideEffects } from '@ngrx/effects';
 import { boardsFeature } from './state/board/board.state';
 import { tasksFeature } from './state/task/task.state';
 import { BoardEffects } from './state/board/board.effects';
+import { TaskEffects } from './state/task/task.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,6 @@ export const appConfig: ApplicationConfig = {
       [boardsFeature.name]: boardsFeature.reducer,
       [tasksFeature.name]: tasksFeature.reducer,
     }),
-    provideEffects(BoardEffects),
+    provideEffects(BoardEffects, TaskEffects),
   ],
 };
