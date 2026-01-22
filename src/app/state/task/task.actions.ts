@@ -11,5 +11,8 @@ export const TaskActions = createActionGroup({
     'Move Task': props<{ taskId: string; columnId: string; previousColumnId: string }>(),
     'Move Task Success': props<{ task: Task }>(),
     'Move Task Failure': props<{ taskId: string; previousColumnId: string; error: string }>(),
+    'Update Task': props<{ id: string, updates: Partial<Task> }>(),
+    'Update Task Success': props<{ id: string, task: Task }>(),
+    'Update Task Failure': props<{ id: string, error: string }>(),
   },
 });

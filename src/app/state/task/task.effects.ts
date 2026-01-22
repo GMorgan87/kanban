@@ -40,4 +40,22 @@ export class TaskEffects {
       )
     )
   );
+
+  updateTask$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TaskActions.updateTask),
+      switchMap(({ id, updates }) =>
+        this.dataService.updateTask(id, updates).pipe(
+          map((task) => TaskActions.updateTaskSuccess({ id, task })),
+          catchError((error: Error) =>
+            of(TaskActions.updateTaskFailure({
+              id,
+              error: error.message
+            }))
+          )
+        )
+      )
+    )
+  );
+
 }

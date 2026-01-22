@@ -1,19 +1,60 @@
-<div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
-  @if (task(); as task){
+@if (task(); as task){
+  <div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
     <div style="display: flex; flex-direction: column; gap: 5px; font-size: 14px;">
-      <div style="font-weight: bold; font-size: 16px">{{task.title}}</div>
-      <div>Description: {{task.description}}</div>
-      <div [style.color]="priorityColour()">Priority: {{task.priority}}</div>
-      <div>Assignee: {{task.assignee}}</div>
-      <div>
-        <label for="column-select-{{task.id}}">Move to: </label>
-        <select id="column-select-{{task.id}}" [value]="selectedColumnId()" (change)="onColumnChange($event)">
-          @for (column of columns(); track column.id) {
-            <option [value]="column.id" [selected]="column.id === selectedColumnId()">{{column.title}}</option>
-          }
-        </select>
-      </div>
-    </div>
-  }
+      @if (!isEditMode()) {
+        <div style="font-weight: bold; font-size: 16px">{{task.title}}</div>
+        <div>Description: {{task.description}}</div>
+        <div [style.color]="priorityColour()">Priority: {{task.priority}}</div>
+        <div>Assignee: {{task.assignee}}</div>
+        <div>Created at: {{createdAt()}}</div>
+        <div>Updated at: {{updatedAt()}}</div>
+        <div>
+          <label for="column-select-{{task.id}}">Move to: </label>
+          <select id="column-select-{{task.id}}" [value]="selectedColumnId()" (change)="onColumnChange($event)">
+            @for (column of columns(); track column.id) {
+              <option [value]="column.id" [selected]="column.id === selectedColumnId()">{{column.title}}</option>
+            }
+          </select>
+        </div>
 
-</div>
+      } @else {
+        <form>
+          @for (field of formFields; track field.key) {
+            <div style="margin-bottom: 10px;">
+              <label for="{{field.key}}-{{task.id}}" style="display: block; margin-bottom: 5px;">{{field.label}}:</label>
+              @if (field.type === 'text') {
+                <input
+                  id="{{field.key}}-{{task.id}}"
+                  type="text"
+                  [value]="editForm()[field.key]"
+                  (input)="updateFormField(field.key, $any($event.target).value)"
+                  style="width: 100%; padding: 5px;"
+                />
+              } @else if (field.type === 'textarea') {
+                <textarea
+                  id="{{field.key}}-{{task.id}}"
+                  [value]="editForm()[field.key]"
+                  (input)="updateFormField(field.key, $any($event.target).value)"
+                  style="width: 100%; padding: 5px; min-height: 60px;"
+                ></textarea>
+              } @else if (field.type === 'select') {
+                <select
+                  id="{{field.key}}-{{task.id}}"
+                  [value]="editForm()[field.key]"
+                  (change)="updateFormField(field.key, $any($event.target).value)"
+                  style="width: 100%; padding: 5px;">
+                  @for (option of field.options; track option) {
+                    <option [value]="option">{{option}}</option>
+                  }
+                </select>
+              }
+            </div>
+          }
+        </form>
+      }
+    </div>
+  <div>
+    <button (click)="handleEditClick()">{{isEditMode() ? 'Save' : 'Edit'}}</button>
+  </div>
+  </div>
+}

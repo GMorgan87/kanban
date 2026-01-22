@@ -48,6 +48,26 @@ export const tasksFeature = createFeature({
         state
       );
     }),
+    on(TaskActions.updateTask, (state, { id, updates }) => {
+      const task = state.entities[id];
+      if (!task) return state;
+      return taskAdapter.updateOne(
+        { id, changes: { ...task, ...updates } },
+        state
+      );
+    }),
+    on(TaskActions.updateTaskSuccess, (state, { id, task }) => {
+      return taskAdapter.updateOne(
+        { id, changes: task },
+        state
+      );
+    }),
+    on(TaskActions.updateTaskFailure, (state, { id, error })=> {
+      return {
+        ...state,
+        error
+      };
+    })
   ),
 
   extraSelectors: ({ selectTasksState, selectEntities }) => ({
