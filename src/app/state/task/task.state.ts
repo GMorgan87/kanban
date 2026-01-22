@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Task } from '../../core/models/models';
-import {createFeature, createReducer, createSelector, on} from '@ngrx/store';
-import {TaskActions} from './task.actions';
+import { createFeature, createSelector } from '@ngrx/store';
+import { tasksReducer } from './task.reducers';
 
 export interface TasksState extends EntityState<Task> {
   loading: boolean;
@@ -17,58 +17,7 @@ export const initialState: TasksState = taskAdapter.getInitialState({
 
 export const tasksFeature = createFeature({
   name: 'tasks',
-  reducer: createReducer(
-    initialState,
-    on(TaskActions.loadTasks, (state) => ({
-      ...state,
-      loading: true,
-      error: null,
-    })),
-    on(TaskActions.loadTasksSuccess, (state, { tasks }) =>
-      taskAdapter.setAll(tasks, { ...state, loading: false })
-    ),
-    on(TaskActions.loadTasksFailure, (state, { error }) => ({
-      ...state,
-      loading: false,
-      error,
-    })),
-    on(TaskActions.moveTask, (state, { taskId, columnId }) => {
-      const task = state.entities[taskId];
-      if (!task) return state;
-      return taskAdapter.updateOne(
-        { id: taskId, changes: { columnId, updatedAt: new Date().toISOString() } },
-        state
-      );
-    }),
-    on(TaskActions.moveTaskFailure, (state, { taskId, previousColumnId }) => {
-      const task = state.entities[taskId];
-      if (!task) return state;
-      return taskAdapter.updateOne(
-        { id: taskId, changes: { columnId: previousColumnId } },
-        state
-      );
-    }),
-    on(TaskActions.updateTask, (state, { id, updates }) => {
-      const task = state.entities[id];
-      if (!task) return state;
-      return taskAdapter.updateOne(
-        { id, changes: { ...task, ...updates } },
-        state
-      );
-    }),
-    on(TaskActions.updateTaskSuccess, (state, { id, task }) => {
-      return taskAdapter.updateOne(
-        { id, changes: task },
-        state
-      );
-    }),
-    on(TaskActions.updateTaskFailure, (state, { id, error })=> {
-      return {
-        ...state,
-        error
-      };
-    })
-  ),
+  reducer: tasksReducer,
 
   extraSelectors: ({ selectTasksState, selectEntities }) => ({
     ...taskAdapter.getSelectors(selectTasksState),
