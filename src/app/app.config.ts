@@ -4,8 +4,8 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import { boardsFeature } from './state/board/board.state';
-import { tasksFeature } from './state/task/task.state';
+import { boardsFeature } from './state/board/board.feature';
+import { tasksFeature } from './state/task/task.feature';
 import { BoardEffects } from './state/board/board.effects';
 import { TaskEffects } from './state/task/task.effects';
 

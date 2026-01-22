@@ -1,7 +1,7 @@
 import {Component, computed, inject, input} from '@angular/core';
 import {Column, Task} from '../../../core/models/models';
 import {Store} from '@ngrx/store';
-import {tasksFeature} from '../../../state/task/task.state';
+import {tasksFeature} from '../../../state/task/task.feature';
 import {TaskCard} from './task-card/task-card';
 
 @Component({

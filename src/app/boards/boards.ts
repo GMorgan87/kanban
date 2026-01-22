@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BoardActions } from '../state/board/board.actions';
-import { boardsFeature } from '../state/board/board.state';
+import { boardsFeature } from '../state/board/board.feature';
 import {Router} from '@angular/router';
 
 @Component({

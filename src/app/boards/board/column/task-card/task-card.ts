@@ -1,7 +1,7 @@
 import {Component, computed, effect, inject, input, signal} from '@angular/core';
 import {Task, PriorityLevel} from '../../../../core/models/models';
 import {Store} from '@ngrx/store';
-import {boardsFeature} from '../../../../state/board/board.state';
+import {boardsFeature} from '../../../../state/board/board.feature';
 import {TaskActions} from '../../../../state/task/task.actions';
 
 const PRIORITY_COLOUR_MAP = {

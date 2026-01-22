@@ -1,6 +1,6 @@
 import {Component, computed, inject, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import { boardsFeature } from '../../state/board/board.state';
+import { boardsFeature } from '../../state/board/board.feature';
 import {BoardActions} from '../../state/board/board.actions';
 import {ActivatedRoute} from '@angular/router';
 import {ColumnComponent} from './column/column';
