@@ -1,0 +1,14 @@
+@if (board(); as board) {
+
+  <h1 style="margin-bottom: 10px;">{{board.title}}</h1>
+  <div style="display: flex; gap: 10px">
+    @for (column of columns(); track column.id) {
+      <app-column [column]="column"></app-column>
+    }
+  </div>
+
+} @else {
+
+  <div style="padding: 20px">Loading...</div>
+
+}

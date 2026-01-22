@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Board } from '../../core/models/models';
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { BoardActions } from './board.actions';
 
 export interface BoardsState extends EntityState<Board> {
@@ -39,8 +39,13 @@ export const boardsFeature = createFeature({
       selectedBoardId: id,
     }))
   ),
-  extraSelectors: ({ selectBoardsState }) => ({
+  extraSelectors: ({ selectBoardsState, selectEntities, selectSelectedBoardId }) => ({
     ...boardAdapter.getSelectors(selectBoardsState),
+    selectSelectedBoard: createSelector(
+      selectEntities,
+      selectSelectedBoardId,
+      (entities, selectedId) => (selectedId ? entities[selectedId] : null)
+    ),
   }),
 });
 
@@ -51,6 +56,7 @@ export const {
   selectAll,
   selectEntities,
   selectSelectedBoardId,
+  selectSelectedBoard,
   selectLoading,
   selectError,
 } = boardsFeature;
