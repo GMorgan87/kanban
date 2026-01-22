@@ -1,13 +1,5 @@
 import { Board, Column, PriorityLevel, Task } from '../models/models';
 
-export const MOCK_BOARDS: Board[] = [
-  {
-    id: 'board-1',
-    title: 'Project Development',
-    columns: []
-  }
-];
-
 export const MOCK_COLUMNS: Column[] = [
   {
     id: 'col-1',
@@ -129,5 +121,13 @@ export const MOCK_TASKS: Task[] = [
     columnId: 'col-4',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
+  }
+];
+
+export const MOCK_BOARDS: Board[] = [
+  {
+    id: 'board-1',
+    title: 'Project Development',
+    columns: MOCK_COLUMNS
   }
 ];
