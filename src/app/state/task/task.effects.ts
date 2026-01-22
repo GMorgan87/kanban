@@ -22,4 +22,22 @@ export class TaskEffects {
       )
     )
   );
+
+  moveTask$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TaskActions.moveTask),
+      switchMap(({ taskId, columnId, previousColumnId }) =>
+        this.dataService.moveTask(taskId, columnId).pipe(
+          map((task) => TaskActions.moveTaskSuccess({ task })),
+          catchError((error: Error) =>
+            of(TaskActions.moveTaskFailure({
+              taskId,
+              previousColumnId,
+              error: error.message
+            }))
+          )
+        )
+      )
+    )
+  );
 }

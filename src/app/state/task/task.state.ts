@@ -32,6 +32,22 @@ export const tasksFeature = createFeature({
       loading: false,
       error,
     })),
+    on(TaskActions.moveTask, (state, { taskId, columnId }) => {
+      const task = state.entities[taskId];
+      if (!task) return state;
+      return taskAdapter.updateOne(
+        { id: taskId, changes: { columnId, updatedAt: new Date().toISOString() } },
+        state
+      );
+    }),
+    on(TaskActions.moveTaskFailure, (state, { taskId, previousColumnId }) => {
+      const task = state.entities[taskId];
+      if (!task) return state;
+      return taskAdapter.updateOne(
+        { id: taskId, changes: { columnId: previousColumnId } },
+        state
+      );
+    }),
   ),
 
   extraSelectors: ({ selectTasksState, selectEntities }) => ({
