@@ -5,7 +5,14 @@
       <div>Description: {{task.description}}</div>
       <div [style.color]="priorityColour()">Priority: {{task.priority}}</div>
       <div>Assignee: {{task.assignee}}</div>
-
+      <div>
+        <label for="column-select-{{task.id}}">Move to: </label>
+        <select id="column-select-{{task.id}}" [value]="selectedColumnId()" (change)="onColumnChange($event)">
+          @for (column of columns(); track column.id) {
+            <option [value]="column.id" [selected]="column.id === selectedColumnId()">{{column.title}}</option>
+          }
+        </select>
+      </div>
     </div>
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, Observable, of, throwError } from 'rxjs';
+import { delay, Observable, of, throwError, timer, switchMap } from 'rxjs';
 import { Board, Task } from '../models/models';
 import { MOCK_BOARDS, MOCK_TASKS } from './mock-data';
 
@@ -57,6 +57,14 @@ export class DataService {
   }
 
   moveTask(taskId: string, targetColumnId: string): Observable<Task> {
-    return this.updateTask(taskId, { columnId: targetColumnId });
+    const shouldFail = Math.random() < 0.33;
+    return timer(500).pipe(
+      switchMap(() => {
+        if (shouldFail) {
+          return throwError(() => new Error('Failed to move task'));
+        }
+        return this.updateTask(taskId, { columnId: targetColumnId });
+      })
+    );
   }
 }
