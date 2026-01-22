@@ -39,12 +39,16 @@ export const boardsFeature = createFeature({
       selectedBoardId: id,
     }))
   ),
+  extraSelectors: ({ selectBoardsState }) => ({
+    ...boardAdapter.getSelectors(selectBoardsState),
+  }),
 });
 
 export const {
   name,
   reducer,
   selectBoardsState,
+  selectAll,
   selectEntities,
   selectSelectedBoardId,
   selectLoading,

@@ -1,0 +1,14 @@
+@if (loading()) {
+  <div>Loading boards...</div>
+} @else if (error()) {
+  <div>Error: {{ error() }}</div>
+} @else {
+  <h1>Boards</h1>
+  <ul>
+    @for (board of boards(); track board.id) {
+      <li (click)="handleBoardSelect(board.id)">{{ board.title }}</li>
+    } @empty {
+      <li>No boards found.</li>
+    }
+  </ul>
+}
