@@ -37,6 +37,7 @@ export const MOCK_TASKS: Task[] = [
     title: 'Setup project boilerplate',
     description: 'Initialize Angular app and install dependencies',
     priority: PriorityLevel.HIGH,
+    assignee: 'Alice Smith',
     columnId: 'col-1',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
@@ -46,6 +47,7 @@ export const MOCK_TASKS: Task[] = [
     title: 'Define data models',
     description: 'Create interfaces for Board, Column, and Task',
     priority: PriorityLevel.MEDIUM,
+    assignee: 'Bob Johnson',
     columnId: 'col-1',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
@@ -64,6 +66,7 @@ export const MOCK_TASKS: Task[] = [
     title: 'Implement drag and drop',
     description: 'Enable moving tasks between columns',
     priority: PriorityLevel.CRITICAL,
+    assignee: 'Alice Smith',
     columnId: 'col-2',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
@@ -73,6 +76,7 @@ export const MOCK_TASKS: Task[] = [
     title: 'Add task details modal',
     description: 'Create a view to see and edit task properties',
     priority: PriorityLevel.MEDIUM,
+    assignee: 'Charlie Brown',
     columnId: 'col-2',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
@@ -82,6 +86,7 @@ export const MOCK_TASKS: Task[] = [
     title: 'Code review: API integration',
     description: 'Check the new service layer changes',
     priority: PriorityLevel.HIGH,
+    assignee: 'Bob Johnson',
     columnId: 'col-3',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
@@ -100,6 +105,7 @@ export const MOCK_TASKS: Task[] = [
     title: 'Accessibility audit',
     description: 'Run AXE checks and fix violations',
     priority: PriorityLevel.CRITICAL,
+    assignee: 'Charlie Brown',
     columnId: 'col-3',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()

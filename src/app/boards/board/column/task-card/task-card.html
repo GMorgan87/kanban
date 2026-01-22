@@ -1,0 +1,12 @@
+<div style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+  @if (task(); as task){
+    <div style="display: flex; flex-direction: column; gap: 5px; font-size: 14px;">
+      <div style="font-weight: bold; font-size: 16px">{{task.title}}</div>
+      <div>Description: {{task.description}}</div>
+      <div [style.color]="priorityColour()">Priority: {{task.priority}}</div>
+      <div>Assignee: {{task.assignee}}</div>
+
+    </div>
+  }
+
+</div>
