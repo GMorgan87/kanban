@@ -18,26 +18,20 @@ export const tasksReducer = createReducer(
     error,
   })),
   on(TaskActions.moveTask, (state, { taskId, columnId }) => {
-    const task = state.entities[taskId];
-    if (!task) return state;
     return taskAdapter.updateOne(
       { id: taskId, changes: { columnId, updatedAt: new Date().toISOString() } },
       state
     );
   }),
   on(TaskActions.moveTaskFailure, (state, { taskId, previousColumnId }) => {
-    const task = state.entities[taskId];
-    if (!task) return state;
     return taskAdapter.updateOne(
       { id: taskId, changes: { columnId: previousColumnId } },
       state
     );
   }),
   on(TaskActions.updateTask, (state, { id, updates }) => {
-    const task = state.entities[id];
-    if (!task) return state;
     return taskAdapter.updateOne(
-      { id, changes: { ...task, ...updates } },
+      { id, changes: updates },
       state
     );
   }),

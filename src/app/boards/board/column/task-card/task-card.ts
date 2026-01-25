@@ -20,8 +20,8 @@ const PRIORITY_COLOUR_MAP = {
 export class TaskCard {
   private store = inject(Store);
   readonly task = input.required<Task>();
-  readonly priorityColour = computed<string>(() => PRIORITY_COLOUR_MAP[this.task()?.priority || 'Low']);
   readonly columns = computed(() => this.store.selectSignal(boardsFeature.selectSelectedBoard)()?.columns || []);
+  readonly priorityColour = computed<string>(() => PRIORITY_COLOUR_MAP[this.task()?.priority || 'Low']);
   readonly selectedColumnId = computed(() => this.task().columnId);
   readonly createdAt = computed(() => new Date(this.task().createdAt).toLocaleString());
   readonly updatedAt = computed(() => new Date(this.task().updatedAt).toLocaleString());
